@@ -1,0 +1,35 @@
+{
+  "name": "vue-mongodb__messenger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:front": "node ./frontend/server/index.js",
+    "start:back": "node ./backend/server/index.js",
+    "dev": "nodemon ./backend/server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SofiaS1604/vue-mongodb__messenger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SofiaS1604/vue-mongodb__messenger/issues"
+  },
+  "homepage": "https://github.com/SofiaS1604/vue-mongodb__messenger#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-multiparty": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.27",
+    "path": "^0.12.7",
+    "randomstring": "^1.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
