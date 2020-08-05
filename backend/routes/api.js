@@ -1,9 +1,21 @@
 const {Router} = require('express');
 const router = Router();
+const randomString = require('randomstring');
 const path = require('path');
 const multipart = require('connect-multiparty');
 const multipartyMiddleware = multipart();
+const multer = require('multer');
 
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './backend/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, randomString.generate() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({storage: storage});
 const usersController = require('../controllers/UsersController');
 
 router.post('/api/signup', multipartyMiddleware,
@@ -17,5 +29,8 @@ router.post('/api/logout', multipartyMiddleware,
 
 router.get('/api/user', multipartyMiddleware,
     (req, res) => usersController.getUser(req, res));
+
+router.post('/api/updateAvatar', upload.single('avatar'),
+    (req, res) => usersController.updateAvatar(req, res));
 
 module.exports = router;

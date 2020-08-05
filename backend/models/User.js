@@ -18,6 +18,11 @@ const User = new Schema({
         type: String,
         required: true
     },
+    avatar: {
+        type: String,
+        required: true,
+        default: 'http://localhost:3000/photos/avatar.jpg'
+    },
     token: {
         type: String,
         required: true,

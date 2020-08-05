@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const randomString = require('randomstring');
+const path = require('path');
+const fs = require('fs');
 
 module.exports.createUser = (req, res) => {
     const user = new User(req.body);
@@ -38,19 +40,14 @@ module.exports.loginUser = async (req, res) => {
     }
 };
 
-module.exports.getToken = async (token, res) => {
+module.exports.getToken = async (token) => {
     let tokenUser = token ? token.split(" ")[1] : '';
     let user = tokenUser !== '-1' ? await User.findOne({token: tokenUser}) : '';
-
-    if (!user) {
-        return res.status(403).json({message: "You need authorization"});
-    }
-
-    return user;
+    return !user ? null : user;
 };
 
 module.exports.logoutUser = async (req, res) => {
-    let user = await this.getToken(req.header('Authorization'), res);
+    let user = await this.getToken(req.header('Authorization'));
     if (user !== null) {
         user.token = '-1';
         await user.save();
@@ -61,8 +58,43 @@ module.exports.logoutUser = async (req, res) => {
 };
 
 module.exports.getUser = async (req, res) => {
-    let user = await this.getToken(req.header('Authorization'), res);
+    let user = await this.getToken(req.header('Authorization'));
     if (user !== null) {
-        return res.status(200).json({first_name: user.first_name, surname: user.surname, login: user.login})
+        return res.status(200).json({
+            first_name: user.first_name,
+            surname: user.surname,
+            login: user.login,
+            avatar: user.avatar
+        })
+    } else {
+        return res.status(403).json({message: "You need authorization"})
+    }
+};
+
+module.exports.deleteUser = async (req, res) => {
+    let user = await this.getToken(req.header('Authorization'));
+    if (user !== null) {
+        user.remove();
+        return res.status(200).send('')
+    } else {
+        return res.status(403).json({message: "You need authorization"})
+    }
+};
+
+module.exports.updateAvatar = async (req, res) => {
+    let user = await this.getToken(req.header('Authorization'));
+    if (user !== null) {
+        if (req.file && (path.extname(req.file.filename) === '.jpg' || path.extname(req.file.filename) === '.jpeg' || path.extname(req.file.filename) === '.png')) {
+            user.avatar = `http://localhost:3000/photos/${req.file.filename}`;
+            await user.save();
+            return res.status(200).json({avatar: user.avatar});
+        } else {
+            if (req.file)
+                fs.unlinkSync(req.file.path);
+
+            return res.status(422).json({photo: "Path `avatar` is required or incorrect."});
+        }
+    } else {
+        return res.status(403).json({message: "You need authorization"})
     }
 };
