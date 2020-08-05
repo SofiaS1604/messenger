@@ -74,6 +74,10 @@ module.exports.getUser = async (req, res) => {
 module.exports.deleteUser = async (req, res) => {
     let user = await this.getToken(req.header('Authorization'));
     if (user !== null) {
+        let avatar = user.avatar.split('http://localhost:3000/photos/')[1];
+        if(avatar !== 'avatar.jpg')
+            fs.unlinkSync(path.join(__dirname, '../uploads/' + avatar));
+
         user.remove();
         return res.status(200).send('')
     } else {
@@ -85,6 +89,10 @@ module.exports.updateAvatar = async (req, res) => {
     let user = await this.getToken(req.header('Authorization'));
     if (user !== null) {
         if (req.file && (path.extname(req.file.filename) === '.jpg' || path.extname(req.file.filename) === '.jpeg' || path.extname(req.file.filename) === '.png')) {
+            let avatar = user.avatar.split('http://localhost:3000/photos/')[1];
+            if(avatar !== 'avatar.jpg')
+                fs.unlinkSync(path.join(__dirname, '../uploads/' + avatar));
+
             user.avatar = `http://localhost:3000/photos/${req.file.filename}`;
             await user.save();
             return res.status(200).json({avatar: user.avatar});
