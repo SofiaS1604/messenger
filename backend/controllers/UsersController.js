@@ -57,15 +57,19 @@ module.exports.logoutUser = async (req, res) => {
     }
 };
 
+let getUser = (user) => {
+    return {
+        first_name: user.first_name,
+        surname: user.surname,
+        login: user.login,
+        avatar: user.avatar
+    }
+}
+
 module.exports.getUser = async (req, res) => {
     let user = await this.getToken(req.header('Authorization'));
     if (user !== null) {
-        return res.status(200).json({
-            first_name: user.first_name,
-            surname: user.surname,
-            login: user.login,
-            avatar: user.avatar
-        })
+        return res.status(200).json(getUser(user))
     } else {
         return res.status(403).json({message: "You need authorization"})
     }
@@ -95,7 +99,7 @@ module.exports.updateAvatar = async (req, res) => {
 
             user.avatar = `http://localhost:3000/photos/${req.file.filename}`;
             await user.save();
-            return res.status(200).json({avatar: user.avatar});
+            return res.status(200).json(getUser(user));
         } else {
             if (req.file)
                 fs.unlinkSync(req.file.path);
@@ -106,3 +110,22 @@ module.exports.updateAvatar = async (req, res) => {
         return res.status(403).json({message: "You need authorization"})
     }
 };
+
+module.exports.updateUser = async (req, res) => {
+    let user = await this.getToken(req.header('Authorization'));
+    if (user !== null) {
+       if(req.body.login)
+           user.login = req.body.login;
+
+       if(req.body.first_name)
+           user.first_name = req.body.first_name;
+
+       if(req.body.surname)
+           user.surname = req.body.surname;
+
+       await user.save();
+       return res.status(200).json(getUser(user));
+    } else {
+        return res.status(403).json({message: "You need authorization"})
+    }
+}

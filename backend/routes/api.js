@@ -33,4 +33,7 @@ router.get('/api/user', multipartyMiddleware,
 router.post('/api/updateAvatar', upload.single('avatar'),
     (req, res) => usersController.updateAvatar(req, res));
 
+router.post('/api/updateUser', multipartyMiddleware,
+    (req, res) => usersController.updateUser(req, res));
+
 module.exports = router;
