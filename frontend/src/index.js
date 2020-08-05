@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import routes from './utils/routes';
 import RootPage from './view/App.vue';
 
 let VueTouch = require('vue-touch');
