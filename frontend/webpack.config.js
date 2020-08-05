@@ -5,10 +5,10 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: path.join(__dirname, 'frontend/src', 'index.js'),
-    mode: "development",
+    entry: path.join(__dirname, 'src', 'index.js'),
+    mode: 'development',
     output: {
-        publicPath: "/"
+        publicPath: '/'
     },
     devServer: {
         historyApiFallback: true
@@ -64,8 +64,8 @@ module.exports = {
     plugins: [
         new VueLoaderPlugin(),
         new htmlWebpackPlugin({
-            filename: path.join(__dirname, `frontend/dist`, `index.html`),
-            template: path.join(__dirname, `frontend/public`, `index.html`),
+            filename: path.join(__dirname, 'dist', 'index.html'),
+            template: path.join(__dirname, 'public', 'index.html'),
             inject: true,
             minify: false
         }),

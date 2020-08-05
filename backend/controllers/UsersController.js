@@ -9,7 +9,7 @@ module.exports.createUser = (req, res) => {
         if (error) {
             let obj_errors = {};
             let login_error = {login: "Path `login` is required or incorrect."};
-            for (key in error.errors)
+            for (let key in error.errors)
                 obj_errors[key] = error.errors[key].properties.message;
 
             return res.status(422).json(!obj_errors ? login_error : obj_errors);
@@ -64,7 +64,7 @@ let getUser = (user) => {
         login: user.login,
         avatar: user.avatar
     }
-}
+};
 
 module.exports.getUser = async (req, res) => {
     let user = await this.getToken(req.header('Authorization'));
@@ -79,7 +79,7 @@ module.exports.deleteUser = async (req, res) => {
     let user = await this.getToken(req.header('Authorization'));
     if (user !== null) {
         let avatar = user.avatar.split('http://localhost:3000/photos/')[1];
-        if(avatar !== 'avatar.jpg')
+        if (avatar !== 'avatar.jpg')
             fs.unlinkSync(path.join(__dirname, '../uploads/' + avatar));
 
         user.remove();
@@ -92,9 +92,10 @@ module.exports.deleteUser = async (req, res) => {
 module.exports.updateAvatar = async (req, res) => {
     let user = await this.getToken(req.header('Authorization'));
     if (user !== null) {
-        if (req.file && (path.extname(req.file.filename) === '.jpg' || path.extname(req.file.filename) === '.jpeg' || path.extname(req.file.filename) === '.png')) {
+        if (req.file && (path.extname(req.file.filename) === '.jpg' ||
+                path.extname(req.file.filename) === '.jpeg' || path.extname(req.file.filename) === '.png')) {
             let avatar = user.avatar.split('http://localhost:3000/photos/')[1];
-            if(avatar !== 'avatar.jpg')
+            if (avatar !== 'avatar.jpg')
                 fs.unlinkSync(path.join(__dirname, '../uploads/' + avatar));
 
             user.avatar = `http://localhost:3000/photos/${req.file.filename}`;
@@ -114,18 +115,18 @@ module.exports.updateAvatar = async (req, res) => {
 module.exports.updateUser = async (req, res) => {
     let user = await this.getToken(req.header('Authorization'));
     if (user !== null) {
-       if(req.body.login)
-           user.login = req.body.login;
+        if (req.body.login)
+            user.login = req.body.login;
 
-       if(req.body.first_name)
-           user.first_name = req.body.first_name;
+        if (req.body.first_name)
+            user.first_name = req.body.first_name;
 
-       if(req.body.surname)
-           user.surname = req.body.surname;
+        if (req.body.surname)
+            user.surname = req.body.surname;
 
-       await user.save();
-       return res.status(200).json(getUser(user));
+        await user.save();
+        return res.status(200).json(getUser(user));
     } else {
         return res.status(403).json({message: "You need authorization"})
     }
-}
+};
