@@ -6,11 +6,11 @@ const history = require('connect-history-api-fallback');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
-const webpackConfig = require('../webpack.config');
+const webpackConfig = require('../webpack.config.js');
 
 const app = express();
 const compiler = webpack(webpackConfig);
-const DEFAULT_PORT = 3000;
+const DEFAULT_PORT = 8000;
 
 app.use(webpackDevMiddleware(compiler, {
     stats: webpackConfig.stats,
