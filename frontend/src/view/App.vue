@@ -1,9 +1,8 @@
 <template>
-    <div class="page">
-       1
-    </div>
+    <div>1</div>
 </template>
 <script>
+    console.log('543534454354543455435434435534543345');
     export default {
         name: 'App',
     };

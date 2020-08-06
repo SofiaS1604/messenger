@@ -3,21 +3,21 @@ const express = require('express');
 const webpack = require('webpack');
 const history = require('connect-history-api-fallback');
 
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+const devMiddleware = require('webpack-dev-middleware');
+const hotMiddleware = require('webpack-hot-middleware');
 
-const webpackConfig = require('../webpack.config.js');
+const webpackConfig = require('../webpack.config');
 
 const app = express();
 const compiler = webpack(webpackConfig);
 const DEFAULT_PORT = 8000;
 
-app.use(webpackDevMiddleware(compiler, {
+app.use(devMiddleware(compiler, {
     stats: webpackConfig.stats,
     publicPath: webpackConfig.output.publicPath
 }));
 
-app.use(webpackHotMiddleware(compiler));
+app.use(hotMiddleware(compiler));
 app.use(history());
 
 app.get('/', (req, res) => {
