@@ -1,7 +1,9 @@
 <template>
     <div class="form__group">
-        <input type="text" id="form__input"/>
-        <label for="form__input"><slot/></label>
+        <input type="text" class="form__input"/>
+        <label class="form__label">
+            <slot/>
+        </label>
     </div>
 </template>
 
@@ -11,6 +13,4 @@
     }
 </script>
 
-<style scoped>
-
-</style>
+<style src="./../../style/components/input.styl" lang="stylus"/>

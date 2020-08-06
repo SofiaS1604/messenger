@@ -1,8 +1,8 @@
 <template>
-    <div>1</div>
+    <router-view :key="$route.path"/>
 </template>
+
 <script>
-    console.log('543534454354543455435434435534543345');
     export default {
         name: 'App',
     };
