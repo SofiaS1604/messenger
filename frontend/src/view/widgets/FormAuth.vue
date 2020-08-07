@@ -1,9 +1,10 @@
 <template>
-    <div>
-        <my-input>Email</my-input>
-        <my-input>werwrwe</my-input>
-        <my-input>djglkfdgj</my-input>
-        <my-button>sdfjgfh</my-button>
+    <div class="authorization__form form">
+        <div class="form__title">Log in</div>
+        <my-input>Login:</my-input>
+        <my-input>Password:</my-input>
+        <my-button>Log in</my-button>
+        <a href="/#/signup" class="form__link">Don't have an account?</a>
     </div>
 </template>
 
@@ -21,6 +22,4 @@
     }
 </script>
 
-<style scoped>
-
-</style>
+<style src="../../style/components/form_auth.styl" lang="stylus"/>
