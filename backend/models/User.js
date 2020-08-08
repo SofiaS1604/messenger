@@ -27,6 +27,11 @@ const User = new Schema({
         type: String,
         required: true,
         default: '-1'
+    },
+    option: {
+        type: String,
+        required: true,
+        default: ''
     }
 }, {versionKey: '_somethingElse'});
 

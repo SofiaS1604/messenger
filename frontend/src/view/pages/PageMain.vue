@@ -1,26 +1,52 @@
 <template>
-
+    <div class="page__account account">
+        <profile-account v-if="this.result" :profile="this.result.data"></profile-account>
+    </div>
 </template>
 
 <script>
+    import axios from "axios";
+    import ProfileAccount from "../widgets/ProfileAccount.vue";
+
+    const componentsList = {};
+    componentsList[ProfileAccount.name] = ProfileAccount;
+
     export default {
         name: "PageMain",
-        data(){
-          return {
-              k: 1
-          }
+        components: componentsList,
+        data() {
+            return {
+                result: null
+            }
         },
-        created() {
-            if(!localStorage.getItem('tokenUser')){
-                this.$router.push({name: 'login'})
-            }else{
-                this.getData()
+        async created() {
+            if (!localStorage.getItem('tokenUser')) {
+                await this.$router.push({name: 'login'})
+            } else {
+                this.result = await this.getData().then(res => this.result = res);
+                console.log(this.result);
             }
         },
         methods: {
-            getData(){
-                console.log(1);
-            }
+            getData: async function () {
+                return new Promise(async resolve => {
+                    await axios.get(
+                        `http://localhost:3000/api/user`, {
+                            headers: {
+                                Authorization: "Bearer " + localStorage.getItem('tokenUser')
+                            }
+                        }
+                    )
+                        .then((response) => {
+                            response.type = 'try';
+                            resolve(response);
+                        })
+                        .catch((error) => {
+                            error.response.type = 'error';
+                            resolve(error.response);
+                        });
+                });
+            },
         }
     }
 </script>
