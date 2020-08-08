@@ -9,13 +9,39 @@
                 Option: {{this.profile.option ? this.profile.option : 'null' }}
             </div>
         </div>
+        <div class="profile__icons icons">
+            <icon data-title="Update user" class="icons__item icons__edit"
+                  :urlImage="require('./../../images/pen.png').default"/>
+            <icon @click.native="deleteUser" data-title="Delete user" class="icons__item icons__delete"
+                  :urlImage="require('./../../images/close.png').default"/>
+            <icon data-title="Update avatar" class="icons__item icons__update"
+                  :urlImage="require('./../../images/file-upload.png').default"/>
+        </div>
     </div>
 </template>
 
 <script>
+    import Icon from "../atoms/Icon.vue";
+    import axios from "axios";
+
     export default {
         name: "ProfileAccount",
-        props: ["profile"]
+        components: {Icon},
+        props: ["profile"],
+        methods: {
+            deleteUser() {
+                axios.delete(
+                    `http://localhost:3000/api/deleteUser`, {
+                        headers: {
+                            Authorization: "Bearer " + localStorage.getItem('tokenUser')
+                        }
+                    }
+                )
+                    .then(() => {
+                        this.$router.push({name: 'login'})
+                    })
+            }
+        }
     }
 </script>
 

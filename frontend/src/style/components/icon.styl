@@ -1,0 +1,27 @@
+.icons__item:hover::after
+  content attr(data-title)
+  position absolute
+  top -45px
+  left -85px
+  z-index 2
+  border-radius 4px
+  border 1px solid #192535
+  font-size 14px
+  color #192535
+  height 35px
+  background-color white
+  width 145px
+  display flex
+  align-items center
+  justify-content center
+  box-shadow 0 3px 20px 0 rgba(0, 0, 0, .2)
+
+.icons__item+.icons__item
+  margin-top 15px
+
+.icons__item
+  cursor pointer
+  width 32px
+  height 32px
+  display: inline-block;
+  position: relative;

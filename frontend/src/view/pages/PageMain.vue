@@ -27,7 +27,6 @@
                 await this.$router.push({name: 'login'})
             } else {
                 this.result = await this.getData().then(res => this.result = res);
-                console.log(this.result);
             }
         },
         methods: {

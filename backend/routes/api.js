@@ -36,4 +36,7 @@ router.post('/api/updateAvatar', upload.single('avatar'),
 router.post('/api/updateUser', multipartyMiddleware,
     (req, res) => usersController.updateUser(req, res));
 
+router.delete('/api/deleteUser', multipartyMiddleware,
+    (req, res) => usersController.deleteUser(req, res));
+
 module.exports = router;
