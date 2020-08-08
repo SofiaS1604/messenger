@@ -1,5 +1,6 @@
 <template>
     <div class="page__account account">
+        <panel-chats class="account__panel"/>
         <profile-account v-if="this.result" :profile="this.result.data"></profile-account>
     </div>
 </template>
@@ -7,9 +8,11 @@
 <script>
     import axios from "axios";
     import ProfileAccount from "../widgets/ProfileAccount.vue";
+    import PanelChats from "../templates/PanelChats.vue";
 
     const componentsList = {};
     componentsList[ProfileAccount.name] = ProfileAccount;
+    componentsList[PanelChats.name] = PanelChats;
 
     export default {
         name: "PageMain",
