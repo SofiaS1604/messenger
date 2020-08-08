@@ -35,6 +35,7 @@
                     }
                 )
                     .then(() => {
+                        localStorage.removeItem('tokenUser')
                         this.$router.push({name: 'login'})
                     })
             }
