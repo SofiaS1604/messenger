@@ -10,12 +10,9 @@
             </div>
         </div>
         <div class="profile__icons icons">
-            <icon data-title="Update user" class="icons__item icons__edit"
-                  :urlImage="require('./../../images/pen.png').default"/>
-            <icon @click.native="deleteUser" data-title="Delete user" class="icons__item icons__delete"
-                  :urlImage="require('./../../images/close.png').default"/>
-            <icon data-title="Update avatar" class="icons__item icons__update"
-                  :urlImage="require('./../../images/file-upload.png').default"/>
+            <icon data-title="Update user" class="icons__edit" :urlImage="require('./../../images/pen.png').default"/>
+            <icon @click.native="deleteUser" data-title="Delete user" class="icons__delete" :urlImage="require('./../../images/close.png').default"/>
+            <icon data-title="Update avatar" class="icons__update" :urlImage="require('./../../images/file-upload.png').default"/>
         </div>
     </div>
 </template>
