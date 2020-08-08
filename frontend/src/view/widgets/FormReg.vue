@@ -39,25 +39,46 @@
                     surname: null,
                 },
                 error: {
-                    loginError: false,
-                    passwordError: false,
-                    surnameError: false,
-                    firstNameError: false,
+                    loginError: null,
+                    passwordError: null,
+                    surnameError: null,
+                    firstNameError: null,
                 },
-
+                result: null
             }
         },
         methods: {
             async getData() {
                 return new Promise(async resolve => {
-                    let res = await axios.get(`http://localhost:3000/api/signup`);
-                    resolve(await res);
+                    await axios.post(`http://localhost:3000/api/signup`, {
+                        login: this.input.login,
+                        password: this.input.password,
+                        first_name: this.input.firstName,
+                        surname: this.input.surname
+                    })
+                        .then((response) => {
+                            response.type = 'try';
+                            resolve(response);
+                        })
+                        .catch((error) => {
+                            error.response.type = 'error';
+                            resolve(error.response);
+                        });
                 });
             },
 
             async submitForm() {
                 let filterInput = Object.values(this.input).filter((el, i) =>
                     this.error[`${Object.keys(this.input)[i]}Error`] = !el);
+
+                if (!filterInput.length) {
+                    this.result = await this.getData().then(res => this.result = res);
+                    if (this.result.type === 'error')
+                        Object.keys(this.result.data).filter(el => this.error[`${el}Error`] = true);
+
+                    if (this.result.type === 'try')
+                        await this.$router.push({name: 'login'})
+                }
             },
 
             keyDown(input) {
@@ -65,8 +86,6 @@
                 this.input.password = input.type === 'password' ? input.value : this.input.password;
                 this.input.firstName = input.type === 'first-name' ? input.value : this.input.firstName;
                 this.input.surname = input.type === 'surname' ? input.value : this.input.surname;
-
-
             }
         }
     }

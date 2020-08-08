@@ -12,7 +12,7 @@ module.exports.createUser = (req, res) => {
             for (let key in error.errors)
                 obj_errors[key] = error.errors[key].properties.message;
 
-            return res.status(422).json(!obj_errors ? login_error : obj_errors);
+            return res.status(422).json(!obj_errors.length ? login_error : obj_errors);
         }
         return res.status(200).json({id: user._id});
     })

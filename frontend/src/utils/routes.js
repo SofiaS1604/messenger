@@ -5,7 +5,12 @@ import PageRegistration from "../view/pages/PageRegistration.vue";
 const routes = [
     {
         path: '/',
-        name: 'main',
+        name: 'account',
+        component: PageMain
+    },
+    {
+        path: '/login',
+        name: 'login',
         component: PageAuthorization
     },
     {
