@@ -2,27 +2,52 @@
   display flex
   padding 20px
   background-color white
-  box-shadow  0 3px 20px 0 rgba(0, 0, 0, .2)
+  box-shadow 0 3px 20px 0 rgba(0, 0, 0, .2)
   margin: 25px;
   height 155px
   width calc(100vw - 400px)
+
+  &__block
+    margin-right 15px
+
   &__info
     color #192535
+
   &__image
     width 155px
     height 155px
     object-fit cover
     object-position center
-    margin-right 15px
+    display none
+
   &__container
     margin-top 5px
     width calc(100vw - 582px)
     margin-right 20px
-  &__icons
-    display flex
-    flex-direction column
-    margin-top 15px
-    margin-bottom: 15px;
 
-.profile__info+.profile__info
+  &__upload
+    width 149px
+    height 149px
+    display none
+    border 3px dashed #4ebcd575
+    font-size 14px
+    color #4ebcd575
+    align-items center
+    justify-content center
+    text-align center
+
+  &__active
+    display flex
+
+.profile__info + .profile__info
   margin-top 5px
+
+.icons
+  &__default, &__upload
+    display none
+    flex-direction column
+    justify-content center
+    height 155px
+
+  &__active
+    display flex !important

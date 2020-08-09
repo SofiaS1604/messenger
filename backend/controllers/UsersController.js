@@ -62,7 +62,8 @@ let getUser = (user) => {
         first_name: user.first_name,
         surname: user.surname,
         login: user.login,
-        avatar: user.avatar
+        avatar: user.avatar,
+        option: user.option
     }
 };
 

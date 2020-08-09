@@ -37,7 +37,8 @@
                             headers: {
                                 Authorization: "Bearer " + localStorage.getItem('tokenUser')
                             }
-                        }
+                        },
+                        {}
                     )
                         .then((response) => {
                             response.type = 'try';

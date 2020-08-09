@@ -63,7 +63,7 @@
                     if (this.result.type === 'error')
                         Object.keys(this.result.data).filter(el => this.error[`${el}Error`] = true);
 
-                    if (this.result.type === 'try'){
+                    if (this.result.type === 'try') {
                         localStorage.setItem('tokenUser', this.result.data.token);
                         await this.$router.push({name: 'account'})
                     }

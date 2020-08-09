@@ -1,7 +1,7 @@
 <template>
     <div class="page__authorization authorization">
         <form-auth/>
-        <img :src="require('./../../images/form__login.jpg').default" class="authorization__image" />
+        <img :src="require('./../../images/form__login.jpg').default" class="authorization__image"/>
     </div>
 </template>
 
