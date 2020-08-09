@@ -1,6 +1,7 @@
 import PageMain from "../view/pages/PageMain.vue";
 import PageAuthorization from "../view/pages/PageAuthorization.vue";
 import PageRegistration from "../view/pages/PageRegistration.vue";
+import PageUpdate from "../view/pages/PageUpdate.vue";
 
 const routes = [
     {
@@ -17,7 +18,12 @@ const routes = [
         path: '/signup',
         name: 'signup',
         component: PageRegistration
-    }
+    },
+    {
+        path: '/update',
+        name: 'update',
+        component: PageUpdate
+    },
 ];
 
 export default {

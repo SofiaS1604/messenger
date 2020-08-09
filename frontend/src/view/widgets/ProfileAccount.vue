@@ -8,16 +8,18 @@
             </div>
         </div>
         <div class="profile__container">
-            <div class="profile__info profile__username">User name: {{this.profileUser.login}}</div>
-            <div class="profile__info profile__surname">Surname: {{this.profileUser.surname}}</div>
-            <div class="profile__info profile__first-name">First name: {{this.profileUser.first_name}}</div>
-            <div class="profile__info profile__option">
-                Option: {{this.profileUser.option}}
+            <div class="profile__user">
+                <div class="profile__info profile__username">User name: {{this.profileUser.login}}</div>
+                <div class="profile__info profile__surname">Surname: {{this.profileUser.surname}}</div>
+                <div class="profile__info profile__first-name">First name: {{this.profileUser.first_name}}</div>
+                <div class="profile__info profile__option">
+                    Option: {{this.profileUser.option}}
+                </div>
             </div>
         </div>
         <div class="profile__icons icons">
             <div class="icons__default" :class="{icons__active: !this.uploadImage}">
-                <icon data-title="Update user" class="icons__edit"
+                <icon @click.native="$router.push({name: 'update'})" data-title="Update user" class="icons__edit"
                       :urlImage="require('./../../images/pen.png').default"/>
                 <icon @click.native="deleteUser" data-title="Delete user" class="icons__delete"
                       :urlImage="require('./../../images/close.png').default"/>

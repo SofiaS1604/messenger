@@ -125,8 +125,23 @@ module.exports.updateUser = async (req, res) => {
         if (req.body.surname)
             user.surname = req.body.surname;
 
-        await user.save();
-        return res.status(200).json(getUser(user));
+        if (req.body.password)
+            user.password = req.body.password;
+
+        if (req.body.option)
+            user.option = req.body.option;
+
+        await user.save((error) => {
+            if (error) {
+                let obj_errors = {};
+                let login_error = {login: "Path `login` is required or incorrect."};
+                for (let key in error.errors)
+                    obj_errors[key] = error.errors[key].properties.message;
+
+                return res.status(422).json(!obj_errors.length ? login_error : obj_errors);
+            }
+            return res.status(200).json(getUser(user));
+        })
     } else {
         return res.status(403).json({message: "You need authorization"})
     }
