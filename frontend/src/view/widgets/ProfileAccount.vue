@@ -13,7 +13,7 @@
                 <div class="profile__info profile__surname">Surname: {{this.profileUser.surname}}</div>
                 <div class="profile__info profile__first-name">First name: {{this.profileUser.first_name}}</div>
                 <div class="profile__info profile__option">
-                    Option: {{this.profileUser.option}}
+                    Description: {{this.profileUser.description}}
                 </div>
             </div>
         </div>

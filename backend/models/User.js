@@ -28,7 +28,7 @@ const User = new Schema({
         required: true,
         default: '-1'
     },
-    option: {
+    description: {
         type: String,
         required: true,
         default: 'null'

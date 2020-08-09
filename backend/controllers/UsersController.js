@@ -63,7 +63,7 @@ let getUser = (user) => {
         surname: user.surname,
         login: user.login,
         avatar: user.avatar,
-        option: user.option
+        description: user.description
     }
 };
 
@@ -128,8 +128,8 @@ module.exports.updateUser = async (req, res) => {
         if (req.body.password)
             user.password = req.body.password;
 
-        if (req.body.option)
-            user.option = req.body.option;
+        if (req.body.description)
+            user.description = req.body.description;
 
         await user.save((error) => {
             if (error) {
